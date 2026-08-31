@@ -6,7 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    helm: https://argoproj.github.io/argo-helm
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
     targetRevision: 10.4.3
   destination:
     server: https://kubernetes.default.svc

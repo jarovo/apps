@@ -56,3 +56,23 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fluent-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://fluent.github.io/helm-charts/
+    chart: fluent-operator
+    targetRevision: 4.3.0
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fluent-operator
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

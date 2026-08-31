@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+spec:
+  project: default
+  source:
+    helm: https://argoproj.github.io/argo-helm
+    targetRevision: 10.4.3
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: self
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:jarovo/apps.git
+    targetRevision: HEAD
+    path: self
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jarovo

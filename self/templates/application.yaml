@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
-    targetRevision: 10.4.3
+    targetRevision: 10.5.0
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
@@ -33,5 +33,6 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
+      prune: true
     syncOptions:
     - CreateNamespace=true

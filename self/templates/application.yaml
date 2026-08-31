@@ -36,3 +36,23 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opensearch
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://opensearch-project.github.io/helm-charts/
+    chart: opensearch
+    targetRevision: 3.8.0
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: opensearch
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

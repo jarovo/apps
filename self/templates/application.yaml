@@ -48,6 +48,10 @@ spec:
     repoURL: https://opensearch-project.github.io/helm-charts/
     chart: opensearch
     targetRevision: 3.8.0
+    helm:
+      valuesObject:
+        singleNode: true
+        opensearchJavaOpts: "-Xmx128M -Xms128M"
   destination:
     server: https://kubernetes.default.svc
     namespace: opensearch

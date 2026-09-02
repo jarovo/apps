@@ -50,7 +50,7 @@ spec:
     targetRevision: 3.8.0
     helm:
       valuesObject:
-        singleNode: false
+        singleNode: true
         opensearchJavaOpts: "-Xmx128M -Xms128M"
         resources:
           requests:

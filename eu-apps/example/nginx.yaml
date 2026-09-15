@@ -20,7 +20,7 @@ spec:
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
-      partition: 3
+      partition: 2
   serviceName: "nginx"
   replicas: 3
   selector:

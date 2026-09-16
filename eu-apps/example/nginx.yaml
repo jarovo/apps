@@ -20,7 +20,7 @@ spec:
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
-      partition: 0
+      partition: 2
   serviceName: "nginx"
   replicas: 3
   selector:
@@ -31,6 +31,13 @@ spec:
       labels:
         app: nginx
     spec:
+      initContainers:
+      - name: init-web
+        image: busybox
+        command: ['sh', '-c', '[ -f /usr/share/nginx/html/index.html ] || echo "$(hostname) `date`" > /usr/share/nginx/html/index.html']
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
       containers:
       - name: nginx
         image: registry.k8s.io/nginx-slim:0.21

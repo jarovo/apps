@@ -4,6 +4,8 @@ metadata:
   name: postink
   namespace: argocd
 spec:
+  writeBackConfig:
+    method: git
   applicationRefs:
     - namePattern: "postink"
       images:

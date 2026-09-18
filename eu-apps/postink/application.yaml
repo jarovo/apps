@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://ghcr.io/jarovo/postink/charts/postink
-    path: .
-    targetRevision: 0.1.0
+    repoURL: https://github.com/jarovo/postink.git
+    path: helm
+    targetRevision: v0.1.0
   destination:
     server: https://kubernetes.default.svc
     namespace: postink

@@ -1,0 +1,11 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: postink
+  namespace: argocd
+spec:
+  applicationRefs:
+    - namePattern: "postink"
+      images:
+        - alias: "postink"
+          imageName: "docker.io/jaryh3/postink:~0.1"

@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/jarovo/postink.git
     path: helm
-    targetRevision: v0.1.0
+    targetRevision: main
   destination:
     server: https://kubernetes.default.svc
     namespace: postink

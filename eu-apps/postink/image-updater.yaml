@@ -6,6 +6,8 @@ metadata:
 spec:
   writeBackConfig:
     method: git
+    gitConfig:
+      writeBackTarget: "helmvalues"
   applicationRefs:
     - namePattern: "postink"
       images:

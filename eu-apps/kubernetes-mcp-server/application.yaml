@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-mcp-server
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: oci://ghcr.io/containers/charts/kubernetes-mcp-server
+    chart: kubernetes-mcp-server
+    targetRevision: 0.1.0
+    helm:
+      valuesObject:
+        ingress:
+          host: localhost
+        rbac:
+          extraClusterRoleBindings:
+            - name: use-view-role
+              roleRef:
+                name: view
+                external: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kubernetes-mcp-server
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

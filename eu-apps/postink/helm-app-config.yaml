@@ -1,0 +1,6 @@
+source:
+  repoURL: https://github.com/jarovo/postink.git
+  path: helm
+  targetRevision: main
+  valuesObject: {}
+namespace: postink

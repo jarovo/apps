@@ -1,9 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: minikube-eu
+  name: minikube-eu-git
   namespace: argocd
 spec:
+  project: default
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
@@ -12,8 +13,8 @@ spec:
         - git:
             repoURL: https://github.com/jarovo/apps.git
             revision: HEAD
-            directories:
-            - path: eu-apps/*
+            files:
+            - path: eu-apps/*/git-app-config.yaml
         - clusters:    
             selector:
               matchLabels:
@@ -25,12 +26,57 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/jarovo/apps.git
-        targetRevision: HEAD
-        path: '{{.path.path}}'
+        repoURL: '{{.source.repoURL}}'
+        targetRevision: '{{.source.targetRevision}}'
+        path: '{{.source.path}}'
       destination:
         server: 'https://kubernetes.default.svc'
-        namespace: 'eu-only-{{index .path.segments 1}}'
+        namespace: '{{.namespace}}'
+
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true  
+        automated: 
+          prune: true
+          selfHeal: true 
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: minikube-eu-helm
+  namespace: argocd
+spec:
+  project: default
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - matrix:
+      generators:
+        - git:
+            repoURL: https://github.com/jarovo/apps.git
+            revision: HEAD
+            files:
+            - path: eu-apps/*/helm-app-config.yaml
+        - clusters:    
+            selector:
+              matchLabels:
+                type: "workload"     
+                region: "eu"                     
+  template:      
+    metadata:
+      name: 'eu-only-{{index .path.segments 1}}'
+    spec:
+      project: default
+      source:
+        repoURL: '{{.source.repoURL}}'
+        targetRevision: '{{.source.targetRevision}}'
+        chart: '{{ dig "chart" "" .source }}'
+        path: '{{ dig "path" "" .source }}'
+        helm:
+          values: '{{ toYaml .source.valuesObject | nindent 12 }}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: '{{.namespace}}'
 
       syncPolicy:
         syncOptions:

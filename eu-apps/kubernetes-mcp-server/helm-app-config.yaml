@@ -1,0 +1,15 @@
+
+source:
+  repoURL: oci://ghcr.io/containers/charts/kubernetes-mcp-server
+  chart: kubernetes-mcp-server
+  targetRevision: 0.1.0
+  valuesObject:
+    ingress:
+      host: localhost
+    rbac:
+      extraClusterRoleBindings:
+        - name: use-view-role
+          roleRef:
+            name: view
+            external: true
+namespace: kubernetes-mcp-server

@@ -1,0 +1,5 @@
+source:
+  repoURL: https://github.com/jarovo/apps.git
+  path: eu-apps/self
+  targetRevision: main
+namespace: eu-only-self

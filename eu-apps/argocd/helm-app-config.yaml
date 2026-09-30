@@ -1,0 +1,7 @@
+
+source:
+  repoURL: https://argoproj.github.io/argo-helm
+  chart: argo-cd
+  targetRevision: 10.5.0
+  valuesObject: {}
+namespace: argocd
